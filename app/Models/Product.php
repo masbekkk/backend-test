@@ -28,4 +28,9 @@ class Product extends Model
             'updated_at',
         ];
     }
+
+    public function productCategory()
+    {
+        return $this->hasMany(ProductCategories::class, 'id', 'product_id');
+    }
 }

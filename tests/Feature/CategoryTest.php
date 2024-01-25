@@ -67,8 +67,7 @@ class CategoryTest extends TestCase
     public function test_admin_fail_create_category(): void
     {
         $response = $this->post('api/admin/category', [
-            // 'name' => 'Undangan Nikah',
-            // 'price' => 500000
+          
         ]);
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonStructure(['errors']);
