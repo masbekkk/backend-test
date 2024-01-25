@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessOrder;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Exception;
@@ -39,6 +40,9 @@ class OrderController extends Controller
             }
 
             $order->details()->saveMany($orderDetails);
+
+            ProcessOrder::dispatchSync($order);
+
             DB::commit();
 
             return response()->json([
