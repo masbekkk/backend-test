@@ -66,7 +66,7 @@ class ProductController extends Controller
             ]);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Products created Successfully!',
+                'message' => 'Product created Successfully!',
                 'data' => $newProducts,
             ], Response::HTTP_CREATED);
         } catch (Exception $e) {
@@ -74,7 +74,7 @@ class ProductController extends Controller
             Log::error('Error creating products: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to create products',
+                'message' => 'Failed to create product',
                 'data' => null,
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -121,7 +121,7 @@ class ProductController extends Controller
                 'status' => 'success',
                 'message' => 'Product updated Successfully!',
                 'data' => $product,
-            ], Response::HTTP_NO_CONTENT);
+            ], Response::HTTP_OK);
         } catch (Exception $e) {
 
             Log::error('Error updating product: ' . $e->getMessage());
