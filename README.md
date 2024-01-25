@@ -8,5 +8,5 @@
  - [x] php artisan migrate:refresh --seed
  - [x] php artisan test
 
- ##Running Task Schedule Clear Cache at Midnight
+# Running Task Schedule Clear Cache at Midnight
  - php artisan schedule:run >> /dev/null 2>&1
