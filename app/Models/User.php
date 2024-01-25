@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function userOrder()
+    {
+        return $this->hasMany(Order::class, 'id', 'customer_product_id');
+    }
 }
