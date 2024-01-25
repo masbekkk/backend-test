@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
-class ProductController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,19 +17,19 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::all();
+            $categories = Category::all();
             return response()->json([
                 'status' => 'success',
-                'message' => 'Products retrieved Successfully!',
-                'data' => $products
+                'message' => 'Categories retrieved Successfully!',
+                'data' => $categories
             ], Response::HTTP_OK);
         } catch (Exception $e) {
 
-            Log::error('Error retrieving products: ' . $e->getMessage());
+            Log::error('Error retrieving categories: ' . $e->getMessage());
             throw $e;
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to retrieve products',
+                'message' => 'Failed to retrieve Categories',
                 'data' => null,
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -51,30 +51,26 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'price' => ['required', 'integer']
         ]);
         // dd($request->all());
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         try {
-            $newProducts = Product::create([
+            $newCategory = Category::create([
                 'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
             ]);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Product created Successfully!',
-                'data' => $newProducts,
+                'message' => 'Category created Successfully!',
+                'data' => $newCategory,
             ], Response::HTTP_CREATED);
         } catch (Exception $e) {
 
-            Log::error('Error creating products: ' . $e->getMessage());
+            Log::error('Error creating Category: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to create product',
+                'message' => 'Failed to create Category',
                 'data' => null,
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -84,7 +80,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Category $category)
     {
         //
     }
@@ -92,7 +88,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
+    public function edit(Category $category)
     {
         //
     }
@@ -100,34 +96,30 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Category $category)
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'price' => ['required', 'integer']
         ]);
         // dd($request->all());
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         try {
-            $product->update([
+            $category->update([
                 'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
             ]);
             return response()->json([
                 'status' => 'success',
-                'message' => 'Product updated Successfully!',
-                'data' => $product,
+                'message' => 'Category updated Successfully!',
+                'data' => $category,
             ], Response::HTTP_OK);
         } catch (Exception $e) {
 
-            Log::error('Error updating product: ' . $e->getMessage());
+            Log::error('Error updating Category: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to update product',
+                'message' => 'Failed to update Category',
                 'data' => null,
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -137,21 +129,21 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Category $category)
     {
         try {
-            $product->delete();
+            $category->delete();
             return response()->json([
                 'status' => 'success',
-                'message' => 'Product deleted Successfully!',
+                'message' => 'Category deleted Successfully!',
                 'data' => null,
             ], Response::HTTP_OK);
 
         } catch (Exception $e) {
-            Log::error('Error deleting product: ' . $e->getMessage());
+            Log::error('Error deleting Category: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'message' => 'Failed to delete product',
+                'message' => 'Failed to delete Category',
                 'data' => null,
                 'error' => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);

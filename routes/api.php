@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('')->name('admin.')->middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
     Route::resource('product', ProductController::class);
+    Route::resource('category', CategoryController::class);
 });
