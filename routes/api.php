@@ -30,3 +30,9 @@ Route::namespace('')->name('admin.')->middleware(['auth:sanctum', 'admin'])->pre
 Route::namespace('')->name('user.')->middleware('auth')->prefix('customer')->group(function () {
     Route::post('process-order', [OrderController::class, 'store'])->name('process-order');
 });
+
+Route::get('/generate-random', function () {
+    $randomString = generateRandomAlphanumeric(10);
+
+    return response()->json(['random_string' => $randomString]);
+});
